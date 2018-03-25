@@ -10,5 +10,9 @@ def index():
 def about():
   return render_template('about.html')
 
+@app.route('/stock')
+def stock():
+   return "hello world"
+
 if __name__ == '__main__':
   app.run(port=33507)
