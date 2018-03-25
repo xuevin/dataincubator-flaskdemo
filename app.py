@@ -13,7 +13,7 @@ def about():
 @app.route('/stock')
 def stock():
    nquestions=5
-   return render_template('stock.html',num='nquestions')
+   return render_template('stock.html',num=nquestions)
 
 if __name__ == '__main__':
   app.run(port=33507)
