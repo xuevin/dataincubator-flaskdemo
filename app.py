@@ -15,5 +15,9 @@ def stock():
    nquestions=5
    return render_template('stock.html',num=nquestions)
 
+@app.route('/index_lulu')
+def index_lulu()
+   ...
+
 if __name__ == '__main__':
   app.run(port=33507)
