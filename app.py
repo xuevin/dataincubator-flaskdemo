@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 import matplotlib
 
-
+from bokeh.embed import components
+from bokeh.charts import Line
 
 app = Flask(__name__)
 
@@ -15,12 +16,14 @@ def getPlot(ticker):
    r = requests.get('https://www.quandl.com/api/v3/datasets/WIKI/'+ticker+'/data.json?api_key=Eebg1xGXqxhS11D52xGs')
    asJson = json.loads(r.content)
    dataFormated = pd.DataFrame(np.array(asJson['dataset_data']['data']),columns=asJson['dataset_data']['column_names'])
-   asDateTime = pd.to_datetime(dataFormated.Date)
+   dataFormated['Date']=pd.to_datetime(dataFormated.Date)
+   dataFormated['Open'] = pd.to_numeric(dataFormated.Open)
 
-   dates = matplotlib.dates.date2num(asDateTime.tolist())
-   values = np.array(dataFormated.Open).astype(float)
+   #dates = matplotlib.dates.date2num(asDateTime.tolist())
+   #values = np.array(dataFormated.Open).astype(float)
+   line = Line(dataFormated,x='Date',y='Open',title="Cool")
 
-   line = Line([dates,values],title="Cool")
+   #line = Line(x=dates,y=values,title="Cool")
 
    return line
 
@@ -44,8 +47,9 @@ def stockVisualize():
    else:
       app.vars['stockTicker'] = request.form['ticker']
       thisLine = getPlot(app.vars['stockTicker'])
-      #script, div = components(thisLine)
-      return render_template('stockVisualize.html',stockTicker=app.vars['stockTicker'])
+      script, div = components(thisLine)
+      return render_template('stockVisualize.html',stockTicker=app.vars['stockTicker'],
+      script=script,div=div)
 
 if __name__ == '__main__':
   app.run(port=33507)
