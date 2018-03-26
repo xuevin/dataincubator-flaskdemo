@@ -10,18 +10,16 @@
       Please answer them to the best of your ability.
     </h4>
 
-    <form id='userinfoform_lulu' method='post' action='index_lulu' >
-      <p>
-    Name: <input type='text' name='name_lulu' />
-      </p>
-      <p>
-    Age: <input type='text' name='age_lulu' />
-      </p>
-      <p>
-    <input type='submit' value='Submit_lulu' />
-      </p>
-    </form>
-
+          <form id='input' method='post' action='stockVisualize'>	
+          <p>Ticker symbol: <input type='text' name='ticker' placeholder='GOOG' /></p>
+          <p>
+          <input type="checkbox" name='features' value='close' />Closing price<br>
+          <input type="checkbox" name='features' value='adj_close' />Adjusted closing price<br>
+          <input type="checkbox" name='features' value='open' />Opening price<br>
+          <input type="checkbox" name='features' value='adj_open' />Adjusted opening price<br>
+          </p>
+          <p><input type="submit" value="Submit"></p>
+          </form>
   </div>
 </div>
 </html>
